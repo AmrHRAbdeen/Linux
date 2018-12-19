@@ -1,0 +1,258 @@
+commands in Linux/Ubuntu:
+-------------------------
+echo $SHELL --> echo shell path
+
+ls -a --> list (a)ll files including hidden files
+
+ls -l -->list all files with their information
+
+ls -hl --> list all files with their information in a human readable format.
+
+touch fileName.txt
+
+pwd (print working directory): print current directory.
+
+echo "mytext" > mytext.txt : insert text into mytext file.
+
+history --> To list all commands ...
+
+man <cmd> : to get cmd manual
+
+man -k <word> EX: man -k list
+
+apropos <keyword>: Search man pages by keyword EX: apropos ls
+if you found a number like (2) that number indicates the section of this command in the manual
+
+info <cmd>: Get command info EX: info ls
+
+whatis <cmd>: Get a brief about a specific command and  returns its section in manual page (in circular braces () )EX: whatis ls
+
+uname -a : Get full info about your device (After laptop name is the Kernel version)
+
+uptime: Show you the time elapsed from the boot up till now
+
+cd ~: change directory to home directory
+
+cd - : change directory to the previous directory
+
+There's no rename in linux we move the folder to the same directory with a different name = Rename :)
+
+rm <Dir_Naem>: remove directory only if it's empty
+
+------------
+Text Editos
+------------
+1-vi <file_Name>
+
+it has 3 Modes:
+-----------------
+1- Insert Mode: Press i then insert your text
+2- Navigate
+3- Command mode(One line Mode) (To exit: ESC then : then q ) (To exit and save: ESC then : then wq) w for write and q for quit
+-------------------------------------------------------------------------------------------------------------------------------
+2- nano <file_name>
+
+
+=======================================================================================
+
+bash : is an implementation of shell
+
+Fish : is an implementation of shell has an autocomplete feature...more or advanced GUI for shell
+
+Power shell : is a linux shell implemented on windows
+
+Note:
+=====
+
+default input for shell is Keyboard
+
+default output for shell is monitor
+---------------------------------------------------
+more ~/.bashrc
+less ~/.bashrc
+head -n <file_Name> : head -10 ~/.bashrc (echo the first 10 lines in that file)
+tail -n <file_Name> : tail -10 ~/.bashrc (echo the last 10 lines in that file)
+diff <file_One> <file_Two> : shows the difference between two files
+=========================================================================================
+Wildcards(Globbing):
+--------------------
+to do an operation to a group of files at once
+* is a wild card represents 0 or more character or number
+? any character
+[] range of characters EX ls [a-z]
+{} group of wild cards
+
+EX:
+    ls *.txt >> list all .txt files
+============================================================================================
+grep <option> <pattern> <file>
+
+EX:
+  grep error *.log
+
+clear
+======================================================
+29/11/2018
+-----------------------
+Permissions:
+============
+
+password in linux (passwd): hide the letters and password
+Password is a file that contains user password and info...
+
+>> cat /etc/passwd
+| pipe sign will redirect the output of a command to be the input of another commands
+
+>> cat /etc/passwd | grep "Amr Abdeen"
+
+>> man <section_num> <cmd>
+EX: man 5 passwd
+
+password is saved in another file called shadow but it needs sudo
+
+id >> returns the user ID
+uid==> user id
+
+whoami ==> return user fileName
+
+exit ==> exit the terminal
+
+-------------------------------------------------------------
+We set rules of a group and another rules per specific user
+-------------------------------------------------------------
+Unix like OS : Follow Unix standard
+
+sudo:super user do :gives the privileges of super user temporarily for 15 minutes
+
+/etc/sudoers ---> contains super users names
+
+su <user-name> : Switch user from terminal
+
+change root user(super user) password: sudo passwd root
+
+to exit root user : exit
+
+*****************************************
+Execute the directory means to open it
+*****************************************
+
+the need to create a file that can be read by all people but user and his group: VIRUS
+
+-----------------------------------------------------------
+change file Permissions:
+------------------------
+chmod <Permissions> <files> : change Mode of a file
+
+  chmod <digit1><digit2><digit3> <fileName> : each digit represents a rwx operations for each part (user,group,Others)
+
+  chmod 777 fileName
+
+  digit1=7=> 4+2+1 >read/write/execute
+
+                    4= 0b100 >read
+                    2= 0b010 >write
+                    1= 0b001 >execute
+
+digit2=7=> the same for group
+
+===========================================================================================
+change ownership:
+-------------------
+chown -R Abdeen /home/myFolder #Makes Abdeen the new owner of all files in myFolder directory
+=================================================
+Shell built-in commands:
+-------------------------
+sudo should execute a program (binary)
+
+to know if the command is a program or a script use: type <cmd>
+
+if its type in /bin directory it's a program
+if it's hashed it means it's in a hash table
+if it's shell builtin it means it's a program within the shell itself
+....
+....
+....
+EX:
+    type grep
+-------------------------------------------------------------
+.deb : debian is the software installer for debian
+==========================================================================
+cd - : change directory to previous directory (like back in windows)
+cd is a builtin command so if you want to know its information you should use :
+help cd #help is a program
+NOTE: --->whatis will not work with cd
+          info will not work with cd
+
+*To make nested folders : cd -p {folderOne/folderTwo/folderThree}
+
+* you can create multiple files @ once using : touch dirName/fileName{startNum..EndNum}.extension
+                                          EX:  touch myDir/myFile{1..5}.txt
+
+
+Home directory contains all users folders
+==================================================================
+File hierarchy:
+----------------
+everything is a file
+
+process is a task in the running state
+
+Hard disk is a file
+Device is a file
+
+partition table : contains start/End of each partition
+
+File System is methodology for storing the Permissions of files access/files numbers per partition/...etc
+it consists of File system metadata and File System data.
+
+File system is per each partition.
+
+File system meta data consists of:
+
+            1- inode(index-node) which is a part of file system metadata
+              each inode (wit unique node ID) contains file creation ,file size , user Creator, modification , etc...
+              each file is attached to a specific node...
+
+            2- dentry(directory entery) Cache: contains file name , column ID in inode , file's parent
+              *parent is a file that has a parent until ROOT which is the parent of itself.
+
+-->To show ID for each file : ls -i or ls -il
+-->To Show all information about that file: stat <fileName>
+===============================================
+Question: how to know block size in linux?
+================================================
+
+File ID may be reused if the older file is deleted...
+
+df --> list all partitions with their information
+
+df -i | less : to list all partitions with their inodes data
+
+
+*When moving a file from directory to another in the same partition the inode will be the same
+but the dentry will be changed.
+
+*when moving a file form file system to another file system it will copy the file itself , its inode , dentry , ...
+
+*open: open a file inside C Program and returns File descriptor...
+
+=====================================================================================================================
+File descriptor : contains file inode and something like a cursor(another pointer) to where the current cursor is..
+=====================================================================================================================
+
+***************************************************************
+Assignment: Links:Hard Link vs Symbolic
+            Journal in Linux/Ubuntu
+***************************************************************
+
+Backward compatible: if newer version of a program it will support the previous versions of OS like 98,XP,Vista,7,...
+
+Kernel contains a file system driver for each file system...
+
+>> file <file_name> : list file information
+>> xxd <file_name> : show HEX representation of a file
+
+>> File Signature=magic number: found in file header indicates file extension...
+
+>>
+==============================================================================
